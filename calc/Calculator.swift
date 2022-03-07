@@ -1,10 +1,6 @@
 import Foundation
 
 class Calculator {
-    
-    /// For multi-step calculation, it's helpful to persist existing result
-    var currentResult = 0
-    
     /// Perform Addition
     ///
     /// - Author: Jacktator
@@ -18,6 +14,25 @@ class Calculator {
     func add(no1: Int, no2: Int) -> Int {
         return no1 + no2
     }
+    func subtract(no1: Int, no2: Int) -> Int {
+        return no1 - no2
+    }
+    func multiply(no1: Int, no2: Int) -> Int {
+        return no1 * no2
+    }
+    func divide(no1: Int, no2: Int) -> Int {
+        return no1 / no2
+    }
+    func remain(no1: Int, no2: Int) -> Int {
+        return no1 % no2
+    }
+    
+    func putValueInArray(value: Int, array: inout [String], index:Int) {
+        array[index] = String(value)
+        array.remove(at: index+1)
+        array.remove(at: index-1)
+        
+    }
     
     func calculate(args: [String]) -> String {
         var items = args
@@ -29,29 +44,31 @@ class Calculator {
         if(items.count > 1){
             stageOne = true
         }
-            
+        
         while stageOne {
             if(items.count == 1){
                 break
             }
+            
+            let no1:Int = Int(items[signIndex-1])!
+            let no2:Int = Int(items[signIndex+1])!
             var itemsChanged:Bool = false
+            
             switch(items[signIndex]) {
             case "x":
-                tempResult = Int(items[signIndex-1])! * Int(items[signIndex+1])!
+                tempResult = multiply(no1: no1, no2: no2)
                 itemsChanged = true
             case "/":
-                tempResult = Int(items[signIndex-1])! / Int(items[signIndex+1])!
+                tempResult = divide(no1: no1, no2: no2)
                 itemsChanged = true
             case "%":
-                tempResult = Int(items[signIndex-1])! % Int(items[signIndex+1])!
+                tempResult = remain(no1: no1, no2: no2)
                 itemsChanged = true
             default:
                 ()
             }
             if(itemsChanged) {
-                items[signIndex] = String(tempResult)
-                items.remove(at: signIndex+1)
-                items.remove(at: signIndex-1)
+                putValueInArray(value: tempResult, array: &items, index: signIndex)
                 signIndex = 1
             }
             else if(signIndex == items.count-2) {
@@ -71,21 +88,23 @@ class Calculator {
             if(items.count == 1){
                 break
             }
+            
+            let no1:Int = Int(items[signIndex-1])!
+            let no2:Int = Int(items[signIndex+1])!
             var itemsChanged:Bool = false
+            
             switch(items[signIndex]) {
             case "+":
-                tempResult = Int(items[signIndex-1])! + Int(items[signIndex+1])!
+                tempResult = add(no1: no1, no2: no2)
                 itemsChanged = true
             case "-":
-                tempResult = Int(items[signIndex-1])! - Int(items[signIndex+1])!
+                tempResult = subtract(no1: no1, no2: no2)
                 itemsChanged = true
             default:
                 ()
             }
             if(itemsChanged) {
-                items[signIndex] = String(tempResult)
-                items.remove(at: signIndex+1)
-                items.remove(at: signIndex-1)
+                putValueInArray(value: tempResult, array: &items, index: signIndex)
                 signIndex = 1
             }
             else if(signIndex == items.count-2) {
