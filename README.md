@@ -2,8 +2,6 @@
 
 <p style="clear:left">41889 - Application Development in the iOS Environment<br/>42889 - iOS Application Development<br/>Autumn 2019</p>
 
-![build status](https://travis-ci.org/uts-ios-dev/calc.svg?branch=master)
-
 # Assessment Task 1
 
 Individual programming project: Command-line calculator
