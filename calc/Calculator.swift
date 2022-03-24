@@ -1,45 +1,80 @@
 import Foundation
 
 class Calculator {
-    /// Performs addition of 2 numbers
+    /// Performs addition of 2 numbers and reports if overflow occurs
     /// - Parameters:
     ///   - no1: first number
     ///   - no2: second number
     /// - Returns: result of addition
     func add(no1: Int, no2: Int) -> Int {
-        return no1 + no2
+        let resultReport = no1.addingReportingOverflow(no2)
+        if(resultReport.overflow) {
+            // resultReport.overflow is true if overflow occurs during addition
+            print("Integer overflow/out-of-bounds occured")
+            exit(2)
+        }
+        return resultReport.partialValue
     }
-    /// Performs subtraction of 2 numbers
+    /// Performs subtraction of 2 numbers and reports if overflow occurs
     /// - Parameters:
     ///   - no1: first number
     ///   - no2: second number
     /// - Returns: result of subtraction
     func subtract(no1: Int, no2: Int) -> Int {
-        return no1 - no2
+        let resultReport = no1.subtractingReportingOverflow(no2)
+        if(resultReport.overflow) {
+            // resultReport.overflow is true if overflow occurs during subtraction
+            print("Integer overflow/out-of-bounds occured")
+            exit(2)
+        }
+        return resultReport.partialValue
     }
-    /// Performs multiplication of 2 numbers
+    /// Performs multiplication of 2 numbers and reports if overflow occurs
     /// - Parameters:
     ///   - no1: first number
     ///   - no2: second number
     /// - Returns: result of multiplication
     func multiply(no1: Int, no2: Int) -> Int {
-        return no1 * no2
+        let resultReport = no1.multipliedReportingOverflow(by: no2)
+        if(resultReport.overflow) {
+            // resultReport.overflow is true if overflow occurs during multiplication
+            print("Integer overflow/out-of-bounds occured")
+            exit(2)
+        }
+        return resultReport.partialValue
     }
-    /// Performs division of 2 numbers
+    /// Performs division of 2 numbers and reports if overflow occurs or tries to divide by 0
     /// - Parameters:
     ///   - no1: first number to be divided
     ///   - no2: second number that is divided by
     /// - Returns: result of division
     func divide(no1: Int, no2: Int) -> Int {
-        return no1 / no2
+        if(no2 == 0) {
+            // exit if tries to divide by 0
+            print("Cannot divide by 0")
+            exit(1)
+        }
+        let resultReport = no1.dividedReportingOverflow(by: no2)
+        if(resultReport.overflow) {
+            // resultReport.overflow is true if overflow occurs during division
+            print("Integer overflow/out-of-bounds occured")
+            exit(2)
+        }
+        return resultReport.partialValue
     }
-    /// Performs remainer operation of 2 numbers
+    /// Performs remainer operation of 2 numbers and reports if overflow occurs
     /// - Parameters:
     ///   - no1: first number to be divided
     ///   - no2: second number that is divided by
     /// - Returns: result of remainder operation
     func remain(no1: Int, no2: Int) -> Int {
-        return no1 % no2
+        let resultReport = no1.remainderReportingOverflow(dividingBy: no2)
+        if(resultReport.overflow) {
+            // resultReport.overflow is true if overflow occurs during remainder operation
+            print("Integer overflow/out-of-bounds occured")
+            exit(2)
+        }
+        return resultReport.partialValue
     }
     
     /// Puts value into where the operator originally was and removes the 2 surrounding numbers
