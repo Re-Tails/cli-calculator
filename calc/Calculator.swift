@@ -52,7 +52,7 @@ class Calculator {
         if(no2 == 0) {
             // exit if tries to divide by 0
             print("Cannot divide by 0")
-            exit(1)
+            exit(3)
         }
         let resultReport = no1.dividedReportingOverflow(by: no2)
         if(resultReport.overflow) {
@@ -68,6 +68,11 @@ class Calculator {
     ///   - no2: second number that is divided by
     /// - Returns: result of remainder operation
     func remain(no1: Int, no2: Int) -> Int {
+        if(no2 == 0) {
+            // exit if tries to divide by 0
+            print("Cannot divide by 0")
+            exit(3)
+        }
         let resultReport = no1.remainderReportingOverflow(dividingBy: no2)
         if(resultReport.overflow) {
             // resultReport.overflow is true if overflow occurs during remainder operation

@@ -26,6 +26,7 @@ for i in stride(from: 1, to: args.count, by: 2){
 
 
 guard validArgs else {
+    print("Invalid arguments")
     exit(1)
 }
 
